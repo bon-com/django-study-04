@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="container mt-2">
+  <div class="card">
+    <div class="card-body text-center">
+      <h2 class="card-title mt-5">本当に削除しますか？</h2>
+      <form method="post" class="mb-4 mt-5 d-inline-block mx-2">
+        {% csrf_token %}
+        <input type="submit" value="はい" class="btn btn-danger">
+      </form>
+      <button id="cancel-delete" class="btn btn-secondary mx-2">いいえ</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('cancel-delete').addEventListener('click', function() {
+      history.back();
+    });
+  </script>
+</div>
+{% endblock %}
