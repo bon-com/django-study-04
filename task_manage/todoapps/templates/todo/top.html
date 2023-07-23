@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>タスク一覧</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+  <div class="container mt-5">
+    <h2 class="text-center"> さんのタスク一覧</h2>
+    <div class="card mt-4">
+      <div class="card-body">
+        {% for msg in errors %}
+        <div id="error-message" class="text-danger mb-3">{{ msg }}</div>
+        {% endfor %}
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>カテゴリ</th>
+              <th>タスク名</th>
+              <th>期日</th>
+              <th>ステータス</th>
+              <!-- <th>アクション</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            {% for todo_item in tasks %}
+            <tr>
+              <td>{{ todo_item.category }}</td>
+              <td>{{ todo_item.task }}</td>
+              <td>{{ todo_item.due_date|date:"Y年m月d日" }}</td>
+              <td>
+                {% if todo_item.status == 0 %}
+                完了
+                {% else %}
+                未完了
+                {% endif %}
+              </td>
+              <!-- <td><a href="#" class="btn btn-success">完了</a></td> -->
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
