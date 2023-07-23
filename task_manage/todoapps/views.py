@@ -6,9 +6,11 @@ from .models import Todo
 class ListTaskView(ListView):
     """タスク一覧表示"""
 
+    # テンプレート名称
     template_name = "todo/top.html"
+    # モデル名称
     model = Todo
-    # コンテキストの変数がtasksになる
+    # コンテキストの変数名
     context_object_name = "tasks"
 
     def get_queryset(self):
