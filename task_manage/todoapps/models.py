@@ -20,9 +20,14 @@ class TodoCategory(models.Model):
 class Todo(models.Model):
     """TODOタスクテーブル"""
 
+    STATUS_CHOICES = [
+        (0, "未完了"),
+        (1, "完了"),
+    ]
+
     task = models.CharField("タスク", max_length=255, null=False)
     memo = models.TextField("メモ", null=True, blank=True)
-    status = models.IntegerField("ステータス", null=False)
+    status = models.IntegerField("ステータス", choices=STATUS_CHOICES, null=False)
     due_date = models.DateTimeField("期日", null=False)
     category = models.ForeignKey(
         TodoCategory, verbose_name="カテゴリID", on_delete=models.CASCADE

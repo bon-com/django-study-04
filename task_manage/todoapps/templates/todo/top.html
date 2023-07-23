@@ -27,13 +27,13 @@
             </tr>
           </thead>
           <tbody>
-            {% for todo_item in tasks %}
+            {% for todo in tasks %}
             <tr>
-              <td>{{ todo_item.category }}</td>
-              <td>{{ todo_item.task }}</td>
-              <td>{{ todo_item.due_date|date:"Y年m月d日" }}</td>
+              <td>{{ todo.category }}</td>
+              <td>{{ todo.task }}</td>
+              <td>{{ todo.due_date|date:"Y年m月d日" }}</td>
               <td>
-                {% if todo_item.status == 0 %}
+                {% if todo.status == 0 %}
                 完了
                 {% else %}
                 未完了
