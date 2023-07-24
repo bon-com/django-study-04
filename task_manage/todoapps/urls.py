@@ -1,7 +1,9 @@
+from django.views.generic.base import RedirectView
 from django.urls import path
 from . import views
 
 urlpatterns = [
+    path("", RedirectView.as_view(url='tasks/'), name='home'),
     path("tasks/", views.ListTaskView.as_view(), name="top"),
     path("tasks/detail/<int:pk>", views.DetailTaskView.as_view(), name="detail"),
     path("tasks/create/", views.TodoCreateView.as_view(), name="create_task"),

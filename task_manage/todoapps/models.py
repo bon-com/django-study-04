@@ -12,9 +12,8 @@ class TodoCategory(models.Model):
         verbose_name_plural = "TODOカテゴリ"  # 左記を定義しないと、管理画面トップのテーブル名にsがついてしまう
 
     def __str__(self):
-        return (
-            self.category_name
-        )  # 左記を定義しないと、作成した内容が「TodoCategory object (1)」といったかたちで管理画面に表示される
+        # 下記を定義しないと、作成した内容が「TodoCategory object (1)」といったかたちで管理画面に表示される
+        return self.category_name
 
 
 class Todo(models.Model):

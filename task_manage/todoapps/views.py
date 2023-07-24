@@ -37,6 +37,8 @@ class DetailTaskView(DetailView):
 
 
 class TodoCreateView(CreateView):
+    """タスク新規登録画面"""
+
     model = Todo
     template_name = "todo/create.html"
     fields = ["task", "memo", "status", "due_date", "category"]
@@ -48,8 +50,8 @@ class TodoCreateView(CreateView):
     def get_success_url(self):
         return reverse_lazy("top")
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self):
+        context = super().get_context_data()
         context["categories"] = TodoCategory.objects.all()
         return context
 
@@ -69,13 +71,13 @@ class TodoEditView(UpdateView):
     fields = ["task", "memo", "due_date", "category", "status"]
     template_name = "todo/edit.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self):
+        context = super().get_context_data()
         context["categories"] = TodoCategory.objects.all()
         return context
 
     def get_success_url(self):
-        return reverse_lazy("detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy("detail", context={"pk": self.object.pk})
 
 
 def todo_complete(request, tid):
