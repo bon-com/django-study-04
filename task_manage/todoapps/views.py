@@ -17,6 +17,8 @@ class ListTaskView(LoginRequiredMixin, ListView):
     model = Todo
     # コンテキスト変数名
     context_object_name = "tasks"
+    # ページネーション（1ページあたりの項目数）
+    paginate_by = 5
 
     def get_queryset(self):
         """一覧取得メソッドのオーバーライド"""
