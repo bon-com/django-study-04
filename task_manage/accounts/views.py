@@ -11,7 +11,7 @@ class SignupView(CreateView):
 
     model = User
     form_class = SignupForm
-    template_name = "accounts/signup.html"
+    template_name = "registration/signup.html"
 
     def form_valid(self, form):	
         # 最初にユーザーを保存する。なぜなら、ログインするためのユーザーが必要だからです。
