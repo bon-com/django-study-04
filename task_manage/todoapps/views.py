@@ -51,7 +51,7 @@ class TodoCreateView(CreateView):
     def get_context_data(self, **kwargs):
         """コンテキストをオーバーライドする"""
         # 既存コンテキスト取得
-        context = super().get_context_data()
+        context = super().get_context_data(**kwargs)
         # カテゴリ一覧を追加
         context["categories"] = models.TodoCategory.objects.all()
         return context
@@ -92,7 +92,7 @@ class TodoEditView(UpdateView):
     def get_context_data(self, **kwargs):
         """コンテキストをオーバーライドする"""
         # 既存コンテキスト取得
-        context = super().get_context_data()
+        context = super().get_context_data(**kwargs)
         # カテゴリ一覧を追加
         context["categories"] = models.TodoCategory.objects.all()
         return context
