@@ -15,25 +15,45 @@
             {% csrf_token %}
             <div class="form-group">
               <label for="task">タスク<span class="text-primary ml-3">※必須</span></label>
-              <input type="text" class="form-control" id="task" name="task" required>
+              <input type="text" class="form-control" id="task" name="task">
             </div>
+            {% for error in form.task.errors %}
+            <div id="title-error" class="text-danger mb-3 error-msg">
+                {{ error }}
+            </div>
+            {% endfor %}
             <div class="form-group">
               <label for="memo">メモ</label>
               <textarea class="form-control" id="memo" name="memo" rows="3"></textarea>
             </div>
+            {% for error in form.memo.errors %}
+            <div id="title-error" class="text-danger mb-3 error-msg">
+                {{ error }}
+            </div>
+            {% endfor %}
             <div class="form-group">
               <label for="due_date">期日<span class="text-primary ml-3">※必須</span></label>
-              <input type="date" class="form-control" id="due_date" name="due_date" required>
+              <input type="date" class="form-control" id="due_date" name="due_date">
             </div>
+            {% for error in form.due_date.errors %}
+            <div id="title-error" class="text-danger mb-3 error-msg">
+                {{ error }}
+            </div>
+            {% endfor %}
             <div class="form-group">
               <label for="category">カテゴリ<span class="text-primary ml-3">※必須</span></label>
-              <select class="form-control" id="category" name="category" required>
+              <select class="form-control" id="category" name="category">
                 <option value="">選択してください</option>
                 {% for category in categories %}
                 <option value="{{ category.id }}">{{ category.category_name }}</option>
                 {% endfor %}
               </select>
             </div>
+            {% for error in form.category.errors %}
+            <div id="title-error" class="text-danger mb-3 error-msg">
+                {{ error }}
+            </div>
+            {% endfor %}
             <button type="submit" class="btn btn-primary mt-3">登録</button>
             <input type="hidden" name="status" value="0">
           </form>
