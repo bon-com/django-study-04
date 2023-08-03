@@ -28,9 +28,8 @@
             <td><a href="{% url 'detail' todo.id %}">{{ todo.task }}</a></td>
             <td>{{ todo.due_date|date:"Y年m月d日" }}</td>
             <td>
-              <a href="{% url 'complete_task' todo.id %}" class="btn btn-success">完了</a>
+              <a href="{% url 'complete_task' todo.pk %}" class="btn btn-success">完了</a>
             </td>
-            <!-- <td><a href="#" class="btn btn-success">完了</a></td> -->
           </tr>
           {% endfor %}
         </tbody>
