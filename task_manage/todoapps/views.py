@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms
+from task_manage import consts
 
 
 class ListTaskView(LoginRequiredMixin, ListView):
@@ -46,7 +47,7 @@ class TodoCreateView(CreateView):
     # テンプレート
     template_name = "todo/create.html"
     # 使用フォームクラス
-    form_class = forms.TodoForm
+    form_class = forms.TodoFormBase
 
     def get_context_data(self, **kwargs):
         """コンテキストをオーバーライドする"""
@@ -60,6 +61,8 @@ class TodoCreateView(CreateView):
         """フォームバリデーション後の処理"""
         # フォームから生成されるモデルにユーザー追加
         form.instance.user = self.request.user
+        # ステータスはデフォルトで0（未完了）とする
+        form.instance.status = consts.TASK_STATUS_IMCOMPLETE
         # 親クラスのDB登録処理呼び出し
         return super().form_valid(form)
 
@@ -87,7 +90,7 @@ class TodoEditView(UpdateView):
     # テンプレート
     template_name = "todo/edit.html"
     # 使用フォームクラス
-    form_class = forms.TodoForm
+    form_class = forms.TodoEditForm
 
     def get_context_data(self, **kwargs):
         """コンテキストをオーバーライドする"""
@@ -107,7 +110,7 @@ def todo_complete(request, tid):
     # タスク情報取得
     todo = get_object_or_404(models.Todo, pk=tid)
     # ステータスを1（完了）に更新
-    todo.status = 1
+    todo.status = consts.TASK_STATUS_COMPLETE
     todo.save()
     # 一覧画面にリダイレクト
     return HttpResponseRedirect(reverse_lazy("top"))

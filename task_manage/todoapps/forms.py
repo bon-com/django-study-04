@@ -3,7 +3,7 @@ from . import models
 from task_manage import consts
 
 
-class TodoForm(forms.ModelForm):
+class TodoFormBase(forms.ModelForm):
     """Todoテーブル共通フォーム"""
 
     # タスク必須チェックメッセージ変更
@@ -33,5 +33,13 @@ class TodoForm(forms.ModelForm):
     class Meta:
         # フィールドと入力チェックの自動生成用
         model = models.Todo
+        # 画面表示項目
+        fields = ["task", "memo", "due_date", "category"]
+
+
+class TodoEditForm(TodoFormBase):
+    """タスク編集用フォーム"""
+
+    class Meata(TodoFormBase.Meta):
         # 画面表示項目
         fields = ["task", "memo", "due_date", "category", "status"]
