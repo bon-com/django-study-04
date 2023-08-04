@@ -40,6 +40,6 @@ class TodoFormBase(forms.ModelForm):
 class TodoEditForm(TodoFormBase):
     """タスク編集用フォーム"""
 
-    class Meata(TodoFormBase.Meta):
+    class Meta(TodoFormBase.Meta):
         # 画面表示項目
         fields = ["task", "memo", "due_date", "category", "status"]

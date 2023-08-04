@@ -15,7 +15,7 @@
             {% csrf_token %}
             <div class="form-group">
               <label for="task">タスク<span class="text-primary ml-3">※必須</span></label>
-              <input type="text" class="form-control" id="task" name="task" value="{{ form.instance.task }}">
+              <input type="text" class="form-control" id="task" name="task" value="{{ form.task.value|default_if_none:''}}">
             </div>
             {% for error in form.task.errors %}
             <div id="title-error" class="text-danger mb-3 error-msg">
@@ -24,7 +24,7 @@
             {% endfor %}
             <div class="form-group">
               <label for="memo">メモ</label>
-              <textarea class="form-control" id="memo" name="memo" rows="3">{{ form.instance.memo }}</textarea>
+              <textarea class="form-control" id="memo" name="memo" rows="3">{{ form.memo.value|default_if_none:''}}</textarea>
             </div>
             {% for error in form.memo.errors %}
             <div id="title-error" class="text-danger mb-3 error-msg">
@@ -33,7 +33,7 @@
             {% endfor %}
             <div class="form-group">
               <label for="due_date">期日<span class="text-primary ml-3">※必須</span></label>
-              <input type="date" class="form-control" id="due_date" name="due_date" value="{{ form.instance.due_date|date:"Y-m-d" }}">
+              <input type="date" class="form-control" id="due_date" name="due_date" value="{{ form.due_date.value|date:'Y-m-d'|default_if_none:''}}">
             </div>
             {% for error in form.due_date.errors %}
             <div id="title-error" class="text-danger mb-3 error-msg">
@@ -45,7 +45,7 @@
               <select class="form-control" id="category" name="category">
                 <option value="">選択してください</option>
                 {% for category in categories %}
-                <option value="{{ category.id }}" {% if category.id == form.instance.category.id %}selected{% endif %}>{{ category.category_name }}</option>
+                <option value="{{ category.id }}" {% if category.id == form.category.value|default_if_none:'' %}selected{% endif %}>{{ category.category_name }}</option>
                 {% endfor %}
               </select>
             </div>
@@ -54,8 +54,21 @@
                 {{ error }}
             </div>
             {% endfor %}         
+            <div class="form-group">
+              <label for="status">ステータス<span class="text-primary ml-3">※必須</span></label>
+              <select class="form-control" id="status" name="status">
+                <option value="">選択してください</option>
+                <option value="0" {% if form.status.value == 0 %}selected{% endif %}>未完了</option>
+                <option value="1" {% if form.status.value == 1 %}selected{% endif %}>完了</option>
+              </select>
+            </div>
+            {% for error in form.status.errors %}
+            <div id="title-error" class="text-danger mb-3 error-msg">
+                {{ error }}
+            </div>
+            {% endfor %}
+            
             <button type="submit" class="btn btn-primary mt-3">更新</button>
-            <input type="hidden" name="status" value="{{ form.instance.status }}">
           </form>
         </div>
       </div>
