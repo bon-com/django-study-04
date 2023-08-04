@@ -27,7 +27,12 @@ class TodoFormBase(forms.ModelForm):
         error_messages={
             consts.INPUT_REQUIRED: "カテゴリは必須です。"
         }
-        
+    )
+    # ステータス必須チェックメッセージ変更
+    status = forms.IntegerField(
+        error_messages={
+            consts.INPUT_REQUIRED: "ステータスは必須です。"
+        }
     )
 
     class Meta:
