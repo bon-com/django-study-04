@@ -1,5 +1,13 @@
+from typing import Any, Dict
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, RedirectView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    UpdateView,
+    CreateView,
+    DeleteView,
+    RedirectView,
+)
 from . import models
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
@@ -12,6 +20,7 @@ class RedirectTopView(RedirectView):
     """タスク一覧画面にリダイレクト"""
 
     url = reverse_lazy("top")
+
 
 class ListTaskView(LoginRequiredMixin, ListView):
     """タスク一覧表示"""
@@ -82,6 +91,11 @@ class DeleteTaskView(LoginRequiredMixin, DeleteView):
     template_name = "todo/todo_confirm_delete.html"
     # 更新成功後のURL
     success_url = reverse_lazy("top")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["task_pk"] = self.object.pk
+        return context
 
 
 class TodoEditView(LoginRequiredMixin, UpdateView):
