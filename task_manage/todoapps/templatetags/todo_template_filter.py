@@ -16,7 +16,7 @@ register = template.Library()
 def to_date(value):
     """日付オブジェクトを文字列に変換します。"""
     if isinstance(value, datetime):
-        return value.strftime('%Y-%m-%d')
+        return f"{value:%Y-%m-%d}"
     return value
 
 @register.filter

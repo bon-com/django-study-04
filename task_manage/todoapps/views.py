@@ -28,7 +28,7 @@ class ListTaskView(LoginRequiredMixin, ListView):
         )
 
 
-class DetailTaskView(DetailView):
+class DetailTaskView(LoginRequiredMixin, DetailView):
     """タスク詳細表示"""
 
     # DB参照モデル
@@ -39,7 +39,7 @@ class DetailTaskView(DetailView):
     context_object_name = "todo"
 
 
-class TodoCreateView(CreateView):
+class TodoCreateView(LoginRequiredMixin, CreateView):
     """タスク新規登録画面"""
 
     # DB登録対象
@@ -71,7 +71,7 @@ class TodoCreateView(CreateView):
         return reverse_lazy("top")
 
 
-class DeleteTaskView(DeleteView):
+class DeleteTaskView(LoginRequiredMixin, DeleteView):
     """タスクの削除"""
 
     # DB更新対象
@@ -82,7 +82,7 @@ class DeleteTaskView(DeleteView):
     success_url = reverse_lazy("top")
 
 
-class TodoEditView(UpdateView):
+class TodoEditView(LoginRequiredMixin, UpdateView):
     """タスクの編集"""
 
     # DB登録対象
