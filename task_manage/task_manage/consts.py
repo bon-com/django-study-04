@@ -11,3 +11,9 @@ TASK_STATUS_IMCOMPLETE = 0
 
 # ステータス完了
 TASK_STATUS_COMPLETE = 1
+
+# エラー画面フラグ
+# DBエラー
+DB_ERROR = "1"
+# 改ざんエラー
+KAIZAN_ERROR = "2"
