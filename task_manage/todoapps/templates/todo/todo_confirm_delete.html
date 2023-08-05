@@ -5,6 +5,7 @@
   <div class="card">
     <div class="card-body text-center">
       <h2 class="card-title mt-5">本当に削除しますか？</h2>
+      <h5 class="mt-5">タスク名：{{ task_name }}</h5>
       <form method="post" class="mb-4 mt-5 d-inline-block mx-2">
         {% csrf_token %}
         <input type="submit" value="はい" class="btn btn-danger">

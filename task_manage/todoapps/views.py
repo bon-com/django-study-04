@@ -133,6 +133,7 @@ class DeleteTaskView(LoginRequiredMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["task_pk"] = self.object.pk
+        context["task_name"] = self.object.task
         return context
 
 
