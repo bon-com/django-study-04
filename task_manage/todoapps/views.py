@@ -1,13 +1,17 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, UpdateView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, RedirectView
 from . import models
-from django.views.generic.edit import CreateView, DeleteView
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import forms
 from task_manage import consts
 
+
+class RedirectTopView(RedirectView):
+    """タスク一覧画面にリダイレクト"""
+
+    url = reverse_lazy("top")
 
 class ListTaskView(LoginRequiredMixin, ListView):
     """タスク一覧表示"""
@@ -58,20 +62,6 @@ class TodoCreateView(LoginRequiredMixin, CreateView):
         # カテゴリ一覧を追加
         context["categories"] = models.TodoCategory.objects.all()
         return context
-
-    def post(self, request, *args, **kwargs):
-        # リクエストデータの確認（デバッグ用）
-        print("POST data:", request.POST)
-
-        # フォームオブジェクトの作成
-        form = self.get_form()
-        # フォームのバリデーション
-        if form.is_valid():
-            # フォームが有効な場合の処理
-            return self.form_valid(form)
-        else:
-            # フォームが無効な場合の処理
-            return self.form_invalid(form)
 
     def form_valid(self, form):
         """フォームバリデーション後の処理"""
