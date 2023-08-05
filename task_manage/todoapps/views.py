@@ -48,6 +48,8 @@ class TodoCreateView(LoginRequiredMixin, CreateView):
     template_name = "todo/create.html"
     # 使用フォームクラス
     form_class = forms.TodoFormBase
+    # 登録完了後のURL
+    success_url = reverse_lazy("top")
 
     def get_context_data(self, **kwargs):
         """コンテキストをオーバーライドする"""
@@ -57,6 +59,20 @@ class TodoCreateView(LoginRequiredMixin, CreateView):
         context["categories"] = models.TodoCategory.objects.all()
         return context
 
+    def post(self, request, *args, **kwargs):
+        # リクエストデータの確認（デバッグ用）
+        print("POST data:", request.POST)
+
+        # フォームオブジェクトの作成
+        form = self.get_form()
+        # フォームのバリデーション
+        if form.is_valid():
+            # フォームが有効な場合の処理
+            return self.form_valid(form)
+        else:
+            # フォームが無効な場合の処理
+            return self.form_invalid(form)
+
     def form_valid(self, form):
         """フォームバリデーション後の処理"""
         # フォームから生成されるモデルにユーザー追加
@@ -65,10 +81,6 @@ class TodoCreateView(LoginRequiredMixin, CreateView):
         form.instance.status = consts.TASK_STATUS_IMCOMPLETE
         # 親クラスのDB登録処理呼び出し
         return super().form_valid(form)
-
-    def get_success_url(self):
-        """登録完了成功後のURLを返却する処理"""
-        return reverse_lazy("top")
 
 
 class DeleteTaskView(LoginRequiredMixin, DeleteView):
