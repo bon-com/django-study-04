@@ -130,15 +130,6 @@ class DeleteTaskView(LoginRequiredMixin, DeleteView):
     # 更新成功後のURL
     success_url = reverse_lazy("top")
 
-    def get_context_data(self, **kwargs):
-        """コンテキストをオーバーライドする"""
-        # 既存のコンテキスト取得
-        context = super().get_context_data(**kwargs)
-        # 画面連携するデータをコンテキストに格納
-        context["task_pk"] = self.object.pk
-        context["task_name"] = self.object.task
-        return context
-
 
 class TodoEditView(LoginRequiredMixin, UpdateView):
     """タスクの編集"""
